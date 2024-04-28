@@ -1,0 +1,211 @@
+@font-face {
+  font-family: "Polka";
+  font-style: normal;
+  font-weight: 400;
+  /* Браузер сначала попробует найти шрифт локально */
+  src: local("Polka"),
+    /* Если не получилось, загрузит woff2 */
+    url("./fonts/Polka/Web-TT/Polka.woff2") format("woff2"),
+    /* Если браузер не поддерживает woff2, загрузит woff */
+    url("./fonts/Polka/Web-TT/Polka.woff") format("woff"),
+    url("./fonts/Polka/Web-TT/Polka.ttf") format("ttf");
+}
+@font-face {
+  font-family: "Craftwork Grotesk";
+  font-style: normal;
+  font-weight: 600;
+  /* Браузер сначала попробует найти шрифт локально */
+  src: local("Craftwork Grotesk"),
+    /* Если не получилось, загрузит woff2 */
+    url("./fonts/Craftwork_Grotesk_Trial/TTF/CraftworkGrotesk-Regular.ttf") format("ttf");
+}
+body{
+    line-height: 1.5;
+    background-image: url("./images/Gradbackground.png");
+    height: 2900px;
+}
+  *{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+  }
+.navbar-navbar{
+	width: 100%;
+	height: 74px;
+}
+.container-navbar {
+	height: inherit;
+	display: flex;
+	align-items:center;
+} 
+.horBorder{
+    border: 0.81px solid #355070;
+}
+.marginFive{
+    margin-left: 5%;
+}
+.verBorderleft{
+    height: 100%;
+    border: 0.81px solid #355070;
+}
+.navbar-brand{
+    text-decoration: none;
+    color: #6D597A;
+    font-family: "Polka" ;
+    font-size: 29.16px;
+    font-weight: 400;
+    line-height: 27.73px;
+    text-align: left;
+    margin-left: 2.2%;
+    margin-right: 2.2%;
+}
+.navbar-menu{
+  width: 45%;
+	display: flex;
+	align-items:center;
+  justify-content: center;
+  flex-flow: row nowrap;
+}
+
+.navbar-menu li{
+	display: inline-block;
+  margin-right: 5%;
+}
+.navbar-menu li a{
+	display: inline-block;
+	color: #355070;
+	text-decoration: none;
+	margin-top: 5px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 16.2px;
+  font-weight: 600;
+  line-height: 19.44px;
+  text-align: left;
+}
+
+
+.container-footer{
+  max-width: 1170px;
+  margin:auto;
+}
+.row{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+ul{
+  list-style: none;
+}
+.footer{
+  padding: 70px 0;
+}
+.footer-col{
+   width: 25%;
+   padding: 0 15px;
+}
+.footer-col h4{
+  font-size: 18px;
+  color: #6D597A;
+  margin-bottom: 35px;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+.footer-col h4::before{
+  content: '';
+  position: absolute;
+  left:0;
+  bottom: -10px;
+  background-color: yellow;
+  height: 2px;
+  box-sizing: border-box;
+  width: 25%;
+}
+
+.footer-col ul{
+  padding: 0 0 0 0 ;
+}
+
+.footer-col ul li:not(:last-child){
+  margin-bottom: 10px;
+}
+.footer-col ul li a{
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 300;
+  color: #6D597A;
+  display: block;
+  transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+  color: #6D597A;
+  padding-left: 8px;
+}
+.footer-col .social-links a{
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  background-color: rgba(255,255,255,0.2);
+  margin:0 10px 10px 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #6D597A;
+  transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover{
+  color: #24262b;
+  background-color: #6D597A;
+}
+
+
+.box{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  position: relative;
+  min-width: 22%;
+}
+
+.box-input .input {
+  width: 70px;
+  height: 40px;
+  background: none;
+  border: 2px solid #355070;
+  border-radius: 50px;
+  box-sizing: border-box;
+  color: #355070;
+  outline: none;
+  transition: 0.7s;
+}
+
+.box-input:hover input{
+  width: 150px;
+  border-radius: 10px;
+}
+.box div{
+  margin-right:8%;
+}
+.box i{
+  margin-left: -35px;
+  margin-top: 20px;
+  transform: translate(-50%,-50%);
+  font-size: 23px;
+  color: #355070;
+  transition: .4s;
+}
+.box-input:hover i{
+  opacity: 0;
+  z-index: -1;
+}
+.box-input{
+  display: flex;
+}
+.content-hidden{
+	display: none;
+}
+
+nav li:last-child {
+  margin-right: 0;
+}
