@@ -1,6 +1,19 @@
 const jwt = require('jsonwebtoken');
 
+/**
+ * Middleware для проверки авторизации
+ * @module checkRoleMiddleware
+ */
+
+/**
+ * Функция проверки авторизации пользователя по роли
+ * @param {string} role - Роль пользователя
+ * @param {string[]} role - Массив ролей пользователя
+ * @returns {json} - Ответ в формате JSON
+ * @returns {void}
+ */
 module.exports = function (role) {
+
     return function (req, res, next) {
         if (req.method === "OPTIONS") {
             next();

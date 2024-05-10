@@ -1,5 +1,9 @@
 const {Sequelize} = require('sequelize');
 
+/**
+ * Модуль подключения к БД
+ * @module db
+ */
 module.exports = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,

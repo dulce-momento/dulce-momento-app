@@ -2,7 +2,18 @@ const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {Client} = require('../models/models');
+/**
+ * Контроллер для модели Client {@link module:models}
+ * @module clientController
+ */
 
+/**
+ * Генерирует JWT Token для клиента
+ * @param {number} id - ID клиента
+ * @param {string} email - E-Mail клиента
+ * @param {string} role - Роль клиента 
+ * @returns {string} - JWT Token
+ */
 const generateJwt = (id, email, role) => {
     return jwt.sign(
         {id, email, role},
@@ -11,7 +22,18 @@ const generateJwt = (id, email, role) => {
     );
 };
 
+/**
+ * Класс контроллера для модели Client {@link module:models}
+ */
 class ClientController {
+    /**
+     * Регистрация пользователя.
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @param {function} next - Следующая Middleware функция
+     * @returns {json} - JWT Token
+     * @returns {function} - Функция обработки ошибки
+     */
     async registration(req, res, next) {
         const {name, surname, patronymic, email, password, role} = req.body;
         if (!email || !password) {
@@ -27,6 +49,14 @@ class ClientController {
         return res.json({token});
     }
 
+    /**
+     * Вход пользователя.
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @param {function} next - Следующая Middleware функция
+     * @returns {json} - JWT Token
+     * @returns {function} - Функция обработки ошибки
+     */
     async login(req, res, next) {
         const {email, password} = req.body;
         const client = await Client.findOne({where: {email}});
@@ -41,6 +71,13 @@ class ClientController {
         return res.json({token});
     }
 
+    /**
+     * Проверка JWT Token.
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @param {function} next - Следующая Middleware функция
+     * @returns {json} - JWT Token
+     */
     async check(req, res, next) {
         const token = generateJwt(req.client.id, req.client.email, req.client.role);
         return res.json({token});

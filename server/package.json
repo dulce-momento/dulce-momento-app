@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "doc": "jsdoc -c jsdoc.json"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "jsdoc": "^4.0.3",
     "nodemon": "^3.1.0"
   }
 }

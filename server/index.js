@@ -9,6 +9,11 @@ const router = require('./routes/index');
 const errorHandler = require('./middleware/ErrorHandlingMiddleware');
 const path = require('path');
 
+/**
+ * Главный модуль серверной части
+ * @module index
+ */
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -17,12 +22,17 @@ app.use(fileUpload({}));
 app.use('/api', router);
 
 //последний middleware
+
 app.use(errorHandler);
 
 app.get('/', (req, res) =>{
     res.status(200).json({message: "200 Working :))"});
 });
 
+/**
+ * Аутентификация в БД и запуск сервера.
+ * @return {void}
+ */
 const start = async () => {
     try {
         await sequelize.authenticate();

@@ -3,8 +3,21 @@ const path = require('path');
 const { Product, ProductInfo } = require('../models/models')
 const ApiError = require('../error/ApiError');
 const { unlink } = require('fs');
+/**
+ * Контроллер для модели Product {@link module:models}
+ * @module productController
+ */
 
+/**
+ * Класс контроллера для модели Product {@link module:models}
+ */
 class ProductController {
+    /**
+     * Добавление Product. 
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @returns {Product} - Добавленная запись Product в формате JSON
+     */
     async create(req, res, next) {
         try {
             let { name, price, info } = req.body;
@@ -32,6 +45,12 @@ class ProductController {
 
     };
 
+    /**
+     * Получение всех записей Product. 
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @returns {Product[]} - Все записи Product в формате JSON
+     */
     async getAll(req, res) {
         let { limit, page } = req.query;
         page = page || 1;
@@ -41,6 +60,12 @@ class ProductController {
         return res.json(products);
     };
 
+    /**
+     * Получение определенной записи Product. 
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @returns {Product} - Найденная запись Product в формате JSON
+     */
     async getOne(req, res) {
         const { id } = req.params;
         const product = await Product.findOne(
@@ -52,6 +77,12 @@ class ProductController {
         return res.json(product);
     };
 
+    /**
+     * Удаление определенной записи Product. 
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @returns {number} - ID удаленной записи
+     */
     async deleteOne(req, res, next) {
         try {
             const { id } = req.params;
@@ -76,6 +107,12 @@ class ProductController {
         }
     };
 
+    /**
+     * Обновление определенной записи Product. 
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @returns {Product} - Обновленная запись Product в формате JSON
+     */
     async updateOne(req, res, next) {
         try {
             const { id } = req.params;

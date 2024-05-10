@@ -3,7 +3,21 @@ const ApiError = require('../error/ApiError');
 const { where } = require('sequelize');
 const jwt = require('jsonwebtoken');
 
+/**
+ * Контроллер для модели Rating {@link module:models}
+ * @module ratingController
+ */
+
+/**
+ * Класс контроллера для модели Rating {@link module:models}
+ */
 class RatingController {
+    /**
+     * Добавление Rating. 
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @returns {Rating} - Добавленная запись Rating в формате JSON
+     */
     async create(req, res, next) {
         const { rating, comment, productId } = req.body;
         let { clientId } = req.body;
@@ -31,12 +45,23 @@ class RatingController {
             return res.json(r);
         }
     }
-
+    /**
+     * Получение всех записей Rating. 
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @returns {Rating[]} - Все записи Rating в формате JSON
+     */
     async getAll(req, res) {
         const ratings = await Rating.findAll()
         return res.json(ratings)
     }
 
+    /**
+     * Удаление определенной записи Rating. 
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @returns {number} - ID удаленной записи
+     */
     async deleteOne(req, res) {
         const { id } = req.params;
         let clientId;
@@ -62,6 +87,12 @@ class RatingController {
         else
             return res.status(403).json("Недоступно");
     };
+    /**
+     * Обновление определенной записи Rating. 
+     * @param {json} req - Информация запроса
+     * @param {json} res - Информация ответа
+     * @returns {Rating} - Обновленная запись Rating в формате JSON
+     */
     async updateOne(req, res, next) {
         try {
             const { id } = req.params;

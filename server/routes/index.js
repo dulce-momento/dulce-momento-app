@@ -8,6 +8,11 @@ const ratingRouter = require('./rating');
 const cartRouter = require('./cartitem');
 const deliveryRouter = require('./delivery');
 
+/**
+ * Корневой модуль для эндпоинтов
+ * @module routes
+ */
+
 router.use('/client', clientRouter);
 router.use('/product', productRouter);
 router.use('/cart', cartRouter);

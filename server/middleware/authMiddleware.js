@@ -1,5 +1,18 @@
 const jwt = require('jsonwebtoken');
 
+/**
+ * Middleware для проверки аутентификации
+ * @module authMiddleware
+ */
+
+/**
+ * Функция проверки аутентификации пользователя.
+ * @param {json} req - Информация запроса
+ * @param {json} res - Информация ответа
+ * @param {function} next - Следующая Middleware функция
+ * @returns {json} - Ответ в формате JSON
+ * @returns {void}
+ */
 module.exports = function (req, res, next) {
     if (req.method === "OPTIONS") {
         next();

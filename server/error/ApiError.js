@@ -1,4 +1,14 @@
+
+/**
+ * Класс ApiError, наследующийся от Error.
+ * Используется для возврата кода ошибок для API.
+ */
 class ApiError extends Error{
+    /**
+     * 
+     * @param {number} status - Статус ошибки
+     * @param {string} message - Сообщение ошибки
+     */
     constructor(status, message) {
         super();
         this.status = status;
