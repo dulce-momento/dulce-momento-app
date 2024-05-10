@@ -49,23 +49,52 @@ const Delivery = sequelize.define('delivery', {
 
 
 /// adds client id fk to rating
-Client.hasMany(Rating);
+Client.hasMany(Rating, { onDelete: 'CASCADE' });
 Rating.belongsTo(Client);
 
-Product.hasMany(CartItem);
+Product.hasMany(CartItem, { onDelete: 'CASCADE' });
 CartItem.belongsTo(Product);
 
-Client.hasMany(CartItem);
+Client.hasMany(CartItem, { onDelete: 'CASCADE' });
 CartItem.belongsTo(Client);
 
-Product.hasMany(ProductInfo);
+Product.hasMany(ProductInfo, { onDelete: 'CASCADE' });
 ProductInfo.belongsTo(Product);
 
-Product.hasMany(Rating);
+Product.hasMany(Rating, { onDelete: 'CASCADE' });
 Rating.belongsTo(Product);
 
-Delivery.hasMany(CartItem, { foreignKey: { allowNull: true } });
+Delivery.hasMany(CartItem, { foreignKey: { allowNull: true }, onDelete: 'CASCADE' });
 CartItem.belongsTo(Delivery);
+
+Rating.afterCreate(async (rating, options) => {
+    await updateProductRating(rating.productId);
+});
+
+Rating.afterUpdate(async (rating, options) => {
+    await updateProductRating(rating.productId);
+});
+
+Rating.afterDestroy(async (rating, options) => {
+    await updateProductRating(rating.productId);
+});
+
+async function updateProductRating(productId) {
+    const averageRating = await Rating.findOne({
+        attributes: [[sequelize.fn('AVG', sequelize.col('rating')), 'averageRating']],
+        where: { productId },
+        raw: true,
+    });
+    await Product.update({ rating: parseInt(averageRating.averageRating) }, { where: { id: productId } });
+};
+
+sequelize.sync()
+    .then(() => {
+        console.log("Models synchronized");
+    })
+    .catch((e) => {
+        console.log(`Error synchronizing ${e}`);
+    });
 
 module.exports = {
     Client, CartItem, Product, ProductInfo, Delivery, Rating
