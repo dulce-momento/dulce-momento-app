@@ -12,11 +12,6 @@ import '../index.css';
 const Navigation = observer(() => {
     const { client } = useContext(Context);
     const navigate = useNavigate();
-    //console.log(client.client.role);
-    const logOut = () => {
-        client.setClient({})
-        client.setIsAuth(false)
-    };
 
     return (
         <Navbar bg="transparent" variant="dark" id='nav-bar'>
@@ -42,23 +37,16 @@ const Navigation = observer(() => {
                         FAQ
                     </NavLink>
                 </Nav>
-                {client.isAuth ?
+                {localStorage.getItem('token')!=null ?
                     <Nav id='nav-bar-right' className="ml-auto" style={{ color: 'black' }}>
-                        {client.client['role']==="ADMIN" &&
-                        <Button
-                            variant={"outline-light"} style={{ color: 'black' }}
-                            onClick={() => navigate(ADMIN_ROUTE)}
-                        >
-                            Админ панель
-                        </Button>
+                        {client.client['role'] === "ADMIN" &&
+                            <Button
+                                variant={"outline-light"} style={{ color: 'black' }}
+                                onClick={() => navigate(ADMIN_ROUTE)}
+                            >
+                                Админ панель
+                            </Button>
                         }
-                        <Button
-                            variant={"outline-light"}
-                            onClick={() => logOut()}
-                            className="ml-2"
-                        >
-                            Выйти
-                        </Button>
                         <NavLink className="ml-2" to={PROFILE_ROUTE}>
                             <Image className='img-filtered' src="/account.png" />
                         </NavLink>

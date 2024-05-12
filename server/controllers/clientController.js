@@ -15,9 +15,8 @@ const { Client } = require('../models/models');
  * @returns {string} - JWT Token
  */
 const generateJwt = (id, name, surname, patronymic, email, role) => {
-    name = name + " " + surname + (patronymic == null||patronymic=='' ? '' : " " + patronymic);
     return jwt.sign(
-        { id, name, email, role },
+        { id, name, surname, patronymic, email, role },
         process.env.SECRET_KEY,
         { expiresIn: '24h' }
     );
@@ -80,8 +79,8 @@ class ClientController {
      * @returns {json} - JWT Token
      */
     async check(req, res, next) {
-        const token = generateJwt(req.client.id, req.client.name,
-            req.client.surname, req.client.patronymic, req.client.email, req.client.role);
+        const token = generateJwt(req.client.id, req.client.name, req.client.surname, req.client.patronymic,
+        req.client.email, req.client.role);
         return res.json({ token });
     }
 }

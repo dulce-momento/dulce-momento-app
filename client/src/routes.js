@@ -15,17 +15,9 @@ export const authRoutes = [
         path: CART_ROUTE,
         Component: Cart
     },
-    {
-        path: PROFILE_ROUTE,
-        Component: Profile
-    }
+   
 ];
-
-export const publicRoutes = [
-    {
-        path: SHOP_ROUTE,
-        Component: Shop
-    },
+export const unauthRoutes = [
     {
         path: LOGIN_ROUTE,
         Component: Auth
@@ -34,8 +26,19 @@ export const publicRoutes = [
         path: REGISTRATION_ROUTE,
         Component: Auth
     },
+];
+export const publicRoutes = [
+    {
+        path: SHOP_ROUTE,
+        Component: Shop
+    },
+    
     {
         path: PRODUCT_ROUTE + '/:id',
         Component: ProductPage
     },
+    {
+        path: PROFILE_ROUTE,
+        Component: Profile
+    }
 ];

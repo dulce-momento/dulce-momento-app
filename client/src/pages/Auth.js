@@ -8,6 +8,7 @@ import { LOGIN_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "../u
 import { login, registration } from "../http/userAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
+import Profile from './Profile';
 
 const Auth = observer(() => {
     const { client } = useContext(Context);
@@ -20,13 +21,6 @@ const Auth = observer(() => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    
-    // if (client.isAuth === true){
-    //     location.pathname=PROFILE_ROUTE;
-    //     // useEffect(()=>{
-    //     //     navigate(PROFILE_ROUTE);
-    //     // });
-    // }
 
     const click = async () => {
         try {
@@ -91,11 +85,11 @@ const Auth = observer(() => {
                     <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
                         {isLogin ?
                             <div>
-                                Нет аккаунта? <NavLink to={REGISTRATION_ROUTE}>Зарегистрируйся!</NavLink>
+                                Нет аккаунта? <NavLink to={REGISTRATION_ROUTE}>Регистрация</NavLink>
                             </div>
                             :
                             <div>
-                                Есть аккаунт? <NavLink to={LOGIN_ROUTE}>Войдите!</NavLink>
+                                Есть аккаунт? <NavLink to={LOGIN_ROUTE}>Войти</NavLink>
                             </div>
                         }
                         <Button

@@ -17,7 +17,10 @@ export const login = async (email, password) => {
 };
 
 export const check = async () => {
+    if(localStorage.getItem('token')===null)
+        return null;
     const { data } = await $authHost.get('api/client/auth');
+    console.log(jwtDecode(data.token));
     localStorage.setItem('token', data.token);
     return jwtDecode(data.token);
 };
