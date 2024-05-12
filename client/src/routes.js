@@ -1,8 +1,9 @@
 import Admin from "./pages/Admin";
-import {ADMIN_ROUTE, CART_ROUTE, PRODUCT_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "./utils/consts";
+import {ADMIN_ROUTE, CART_ROUTE, PRODUCT_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, PROFILE_ROUTE} from "./utils/consts";
 import Cart from "./pages/CartPage";
 import Shop from "./pages/Shop";
 import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
 import ProductPage from "./pages/ProductPage";
 
 export const authRoutes = [
@@ -14,6 +15,10 @@ export const authRoutes = [
         path: CART_ROUTE,
         Component: Cart
     },
+    {
+        path: PROFILE_ROUTE,
+        Component: Profile
+    }
 ];
 
 export const publicRoutes = [
