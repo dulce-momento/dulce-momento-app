@@ -2,24 +2,19 @@ import { makeAutoObservable } from 'mobx';
 
 export default class ProductStore {
     constructor() {
-        this._isAuth = false;
-        this._client = {};
+        this._products = [
+            {id: 1, name: "Тортик Т", price: 999, rating: 4, img: ""}
+        ];
         makeAutoObservable(this);
     };
 
-    setIsAuth(bool) {
-        this._isAuth = bool;
+    setProducts(products) {
+        this._products = products;
     };
 
-    setClient(client) {
-        this._client = client;
+
+    get products() {
+        return this._products;
     };
 
-    get isAuth() {
-        return this._isAuth;
-    };
-
-    get client() {
-        return this._client;
-    };
 };

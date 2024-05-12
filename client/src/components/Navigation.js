@@ -1,31 +1,51 @@
-import React, {useContext} from 'react';
-import {Context} from "../index";
+import React, { useContext } from 'react';
+import { Context } from "../index";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import {Link, NavLink, useNavigate} from "react-router-dom";
-import {ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE, CART_ROUTE} from "../utils/consts";
-import {Button, Image} from "react-bootstrap";
-import {observer} from "mobx-react-lite";
+import { NavLink, useNavigate } from "react-router-dom";
+import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE, CART_ROUTE } from "../utils/consts";
+import { Button, Image } from "react-bootstrap";
+import { observer } from "mobx-react-lite";
 import Container from "react-bootstrap/Container";
 import '../index.css';
 
 const Navigation = observer(() => {
-    const {client} = useContext(Context);
+    const { client } = useContext(Context);
     const navigate = useNavigate();
 
     const logOut = () => {
-        client.setUser({})
+        client.setClient({})
         client.setIsAuth(false)
-    }
+    };
 
     return (
-        <Navbar bg="transparent" variant="dark">
+        <Navbar bg="transparent" variant="dark" id='nav-bar'>
             <Container>
-                <NavLink id='nav-brand' style={{color: '#6d597a', fontFamily: "Polka"}} to={SHOP_ROUTE}>Dulce Momento</NavLink>
+                <NavLink id='nav-brand' style={{ color: '#6d597a', fontFamily: "Polka" }} to={SHOP_ROUTE}>Dulce Momento</NavLink>
+                <Nav className="ml-auto justify-content-end">
+                    <NavLink
+                        variant={"outline-light"}
+                        className="ml-4 nav-link-middle "
+                    >
+                        каталог
+                    </NavLink>
+                    <NavLink
+                        variant={"outline-light"}
+                        className="ml-4 nav-link-middle"
+                    >
+                        доставка
+                    </NavLink>
+                    <NavLink
+                        variant={"outline-light"}
+                        className="ml-4 mr-4 nav-link-middle"
+                    >
+                        FAQ
+                    </NavLink>
+                </Nav>
                 {client.isAuth ?
-                    <Nav className="ml-auto" style={{color: 'white'}}>
+                    <Nav id='nav-bar-right' className="ml-auto" style={{ color: 'black' }}>
                         <Button
-                            variant={"outline-light"}
+                            variant={"outline-light"} style={{ color: 'black' }}
                             onClick={() => navigate(ADMIN_ROUTE)}
                         >
                             Админ панель
@@ -37,21 +57,24 @@ const Navigation = observer(() => {
                         >
                             Выйти
                         </Button>
+                        <NavLink className="ml-2" to={LOGIN_ROUTE}>
+                            <Image className='img-filtered' src="/account.png" />
+                        </NavLink>
+                        <NavLink className="ml-2" to={CART_ROUTE}>
+                            <Image className='img-filtered' src="/cart.png" />
+                        </NavLink>
                     </Nav>
                     :
-                    <Nav className="ml-auto" style={{color: 'white'}}>
-                        <Button variant={"outline-light"} onClick={() => navigate(LOGIN_ROUTE)}>Авторизация</Button>
+                    <Nav id='nav-bar-right' className="ml-auto" style={{ color: 'white' }}>
+                        <NavLink className="ml-2" to={LOGIN_ROUTE} onClick={() => client.setIsAuth(true)}>
+                            <Image className='img-filtered' src="/account.png" />
+                        </NavLink>
+                        <NavLink className="ml-3 mr-3" to={CART_ROUTE}>
+                            <Image className='img-filtered' src="/cart.png" />
+                        </NavLink>
                     </Nav>
                 }
-                <Nav className="ml-auto" style={{color: 'white'}}>
-                    <NavLink to={LOGIN_ROUTE}>
-                        <Image src="/account.png" />
-                    </NavLink>
-                    <Link to={CART_ROUTE}>
-                        <Image src="/cart.png" />
-                    </Link>
-                    
-                </Nav>
+
             </Container>
         </Navbar>
 
