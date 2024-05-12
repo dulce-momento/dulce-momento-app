@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face{
+  font-family: polka;
+  src: url('../public/fonts/polka.ttf');
+}
+
+#nav-brand{
+  font-family: polka;
+  font-size: x-large;
+}
+
