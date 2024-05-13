@@ -18,7 +18,7 @@ const Navigation = observer(() => {
             <Container>
                 <NavLink id='nav-brand' style={{ color: '#6d597a', fontFamily: "Polka" }} to={SHOP_ROUTE}>Dulce Momento</NavLink>
                 <Nav className="ml-auto justify-content-end">
-                    <NavLink
+                    <NavLink to={SHOP_ROUTE}
                         variant={"outline-light"}
                         className="ml-4 nav-link-middle "
                     >

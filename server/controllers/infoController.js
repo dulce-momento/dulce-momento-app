@@ -1,7 +1,7 @@
-const {ProductInfo} = require('../models/models')
+const { ProductInfo } = require('../models/models')
 const ApiError = require('../error/ApiError');
 const { where } = require('sequelize');
-
+const sequelize = require('../db');
 /**
  * Контроллер для модели ProductInfo {@link module:models}
  * @module infoController
@@ -18,8 +18,8 @@ class InfoController {
      * @returns {ProductInfo} - Добавленная запись ProductInfo в формате JSON
      */
     async create(req, res) {
-        const {title, info, productId} = req.body
-        const prinfo = await ProductInfo.create({title, info, productId})
+        const { title, info, productId } = req.body
+        const prinfo = await ProductInfo.create({ title, info, productId })
         return res.json(prinfo)
     }
 
@@ -30,8 +30,8 @@ class InfoController {
      * @returns {ProductInfo[]} - Записи ProductInfo в формате JSON
      */
     async getAll(req, res) {
-        const infos = await ProductInfo.findAll()
-        return res.json(infos)
+        const infos = await ProductInfo.findAll();
+        return res.json(infos);
     }
 
     /**
@@ -41,9 +41,23 @@ class InfoController {
      * @returns {number} - ID удаленной записи
      */
     async deleteOne(req, res) {
-        const {id} = req.params;
-        ProductInfo.destroy({where: {id}});
+        const { id } = req.params;
+        ProductInfo.destroy({ where: { id } });
         return res.json(id);
+    }
+    async getByProduct(req, res) {
+        const { id } = req.params;
+        const infos = ProductInfo.findAll({ where: { productId: id } });
+        return res.json(infos);
+    }
+    async getUniqueTypes(req, res) {
+        const infos = await ProductInfo.findAll(
+            {
+                attributes: [[sequelize.fn('DISTINCT', sequelize.col('info')), 'info']],
+                where: { title: 'Тип' }
+            }
+        );
+        return res.json(infos);
     }
 }
 

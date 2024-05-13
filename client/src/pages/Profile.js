@@ -29,7 +29,7 @@ const Profile = observer(() => {
     return (
         <Container id="auth-cont"
             className="d-flex justify-content-center align-items-start mt-5"
-            style={{ height: window.innerHeight - 54 }}
+            
         >
             <Card style={{ width: 600 }} className="p-5">
                 <h2 className="m-auto">Профиль</h2>

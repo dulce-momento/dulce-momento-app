@@ -32,7 +32,7 @@ const Auth = observer(() => {
             }
             client.setClient(data);
             client.setIsAuth(true);
-            navigate(SHOP_ROUTE);
+            navigate(0);
         } catch (e) {
             alert(e.response.data.message)
         }
