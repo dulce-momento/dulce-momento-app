@@ -3,7 +3,7 @@ import { Context } from "../index";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { NavLink, useNavigate } from "react-router-dom";
-import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE, CART_ROUTE, PROFILE_ROUTE } from "../utils/consts";
+import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE, CART_ROUTE, PROFILE_ROUTE, FAQ_ROUTE } from "../utils/consts";
 import { Button, Image } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import Container from "react-bootstrap/Container";
@@ -26,13 +26,8 @@ const Navigation = observer(() => {
                     </NavLink>
                     <NavLink
                         variant={"outline-light"}
-                        className="ml-4 nav-link-middle"
-                    >
-                        доставка
-                    </NavLink>
-                    <NavLink
-                        variant={"outline-light"}
                         className="ml-4 mr-4 nav-link-middle"
+                        to={FAQ_ROUTE}
                     >
                         FAQ
                     </NavLink>

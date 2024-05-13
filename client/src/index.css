@@ -175,3 +175,54 @@ code {
   justify-self: end;
   align-self: flex-end;
 }
+#faq-cont{
+  display: flex;
+  margin-top: 20px;
+  height: 400px;
+  padding: 0;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#faq-cont>*{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-top: 20px;
+  flex-direction: column;
+}
+
+#faq-cont>*:first-child{
+  margin-top: 15px;
+  border-radius: 0px;
+  height: 100%;
+  text-align: center;
+  font-size: 30px;
+  width: 100%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-image: url("../public/store_bg1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 15px;
+  border-bottom: 5px solid #b884c4;
+  border-right: 5px solid #b884c4;
+  background-size: 100%;
+  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+  color: rgb(90, 19, 98);
+  font-weight: 1000;
+}
+
+#faq-cont>*:nth-child(2){
+  background-color: rgba(255, 255, 255, 0.61);
+  border-radius: 15px;
+  padding: 15px;
+  text-align: justify;
+}
+
+#product-list{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

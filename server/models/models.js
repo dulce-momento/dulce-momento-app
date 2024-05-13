@@ -52,7 +52,7 @@ const Product = sequelize.define('product', {
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
     price: { type: DataTypes.DECIMAL, allowNull: false },
     rating: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
-    img: { type: DataTypes.STRING, allowNull: true }
+    img: { type: DataTypes.STRING, allowNull: false, defaultValue: "fbe4a9ba-c229-4102-bbc7-e2f9f4f9e67a.jpg" }
 }
 );
 
