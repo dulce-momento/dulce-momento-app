@@ -2,12 +2,43 @@ body,
 html,
 #root {
   height: 100%;
-
+  width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+*{
+  z-index: 1;
+}
+body::after{
+  background-image: url("../public/white_wave.png");
+  position: absolute;
+  filter: opacity(100%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  content: "";
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  z-index: 0;
+}
+
+body::before{
+  background-image: url("../public/white_wave_upend.png");
+  filter: opacity(100%);
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  box-sizing: content-box;
+  content: "";
+  bottom: 13%;
+  right: 0px;
+  left: 0px;
+  z-index: 0;
 }
 
 code {
@@ -40,7 +71,12 @@ code {
   border-left: 1px solid #1b3452;
   margin-left: 20px;
   font-family: polka;
-  font-size: xx-large;
+  font-size: 35px;
+  transition: all 0.5s ease;
+}
+#nav-brand:hover{
+  font-size: 40px;
+  filter: hue-rotate(30deg) contrast(200%);
 }
 
 #nav-brand:hover,
@@ -69,8 +105,8 @@ code {
 .img-filtered:hover {
   -webkit-transition: .5s;
   transition: .5s;
-  filter: brightness(1000%);
-  -webkit-filter: brightness(1000%);
+  filter: brightness(200%);
+  -webkit-filter: brightness(200%);
 }
 
 #root {
@@ -96,6 +132,11 @@ code {
 .item-card{
   display: flex;
   padding: 0 10px;
+  scale: 1;
+  transition: all 0.5s ease;
+}
+.item-card:hover{
+  scale: 1.1;
 }
 .item-card>img{
   align-self: center;
@@ -110,4 +151,27 @@ code {
   text-overflow: ellipsis;
   white-space: nowrap;
 
+}
+
+#shop-cont {
+  display: flex;
+  justify-content: center;
+  /* background-color: red; */
+  max-height: 80%;
+  overflow: auto;
+}
+#shop-cont>div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image: linear-gradient(120deg, rgba(172, 218, 255, 0) 0%, rgba(255, 255, 255, 0.5) 43%, rgba(255, 187, 213, 0.178) 100%);
+  border-radius: 15px;
+  height: 100%;
+  
+}
+
+#pages-bar {
+  justify-self: end;
+  align-self: flex-end;
 }

@@ -30,15 +30,16 @@ const Shop = observer(() => {
 
     return (
         <Container id="shop-cont">
-            <Row className="mt-2">
-                <Col md={3}>
-                    <TypeBar/>
-                </Col>
-                <Col md={9}>
+            <Container className="mt-2">
                     <ProductList/>
-                    <Pages/>
-                </Col>
-            </Row>
+                    <Pages id="pages-bar"/>
+                {/* <Col md={3}>
+                    <TypeBar/>
+                </Col> */}
+                {/* <Col md={9}>
+                    
+                </Col> */}
+            </Container>
         </Container>
     );
 });
