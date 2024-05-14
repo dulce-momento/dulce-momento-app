@@ -13,7 +13,7 @@ const Profile = observer(() => {
     useEffect(() => {
         if (localStorage.getItem('token') == null)
             navigate(LOGIN_ROUTE);
-    });
+    }, []);
 
     const name = client.client['name'] + " " + client.client['surname']
         + (client.client['patronymic'] == null || client.client['patronymic'] == '' ? '' : " " + client.client['patronymic']);

@@ -104,10 +104,10 @@ const Delivery = sequelize.define('delivery', {
 Client.hasMany(Rating, { onDelete: 'CASCADE' });
 Rating.belongsTo(Client);
 
-Product.hasMany(CartItem, { onDelete: 'CASCADE' });
+Product.hasMany(CartItem, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 CartItem.belongsTo(Product);
 
-Client.hasMany(CartItem, { onDelete: 'CASCADE' });
+Client.hasMany(CartItem, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 CartItem.belongsTo(Client);
 
 Product.hasMany(ProductInfo, { onDelete: 'CASCADE' });

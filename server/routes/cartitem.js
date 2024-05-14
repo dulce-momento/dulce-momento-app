@@ -1,10 +1,11 @@
 const Router = require('express');
 const router = new Router();
+const cartController = require('../controllers/cartController');
+const checkRole = require('../middleware/checkRoleMiddleware');
 
-
-router.post('/', );
-router.get('/', );
-router.delete('/:id',);
-router.get('/:id', );
+router.post('/', checkRole(['ADMIN', 'USER']), cartController.create);
+router.get('/', checkRole(['ADMIN', 'USER']),cartController.getAllByClientId);
+router.delete('/:id', checkRole(['ADMIN', 'USER']), cartController.deleteOne);
+router.get('/:id', checkRole(['ADMIN', 'USER']), cartController.getByProduct);
 
 module.exports = router;
