@@ -1,6 +1,6 @@
 const { CartItem, Product } = require('../models/models')
 const ApiError = require('../error/ApiError');
-const { where } = require('sequelize');
+const { where, Op } = require('sequelize');
 const sequelize = require('../db');
 const jwt = require('jsonwebtoken');
 
@@ -129,6 +129,25 @@ class CartController {
         //console.log(prices.reduce((partSum, a) => (partSum + Number(a)), 0));
         const cart = CartItem.update({deliveryId:deliveryId}, {where: { id: ids }});
         return res.json(cart);
+    }
+
+    async checkIfBoughtPreviously(req, res, next){
+        let clientId;
+        try {
+            if (req.headers.authorization) {
+                const bearertoken = req.headers.authorization.split(' ')[1];
+                const decodedToken = jwt.verify(bearertoken, process.env.SECRET_KEY);
+                clientId = decodedToken.id;
+            }
+        }
+        catch (e) {
+            next(ApiError.internal(e.message));
+        };
+        const { id } = req.params;
+
+        const rating = await CartItem.findOne( {where: {clientId: clientId, productId: id, deliveryId:{[Op.not]: null}}});
+
+        return res.json(rating);
     }
 }
 

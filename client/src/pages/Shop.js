@@ -32,12 +32,6 @@ const Shop = observer(() => {
             <Container className="mt-2">
                     <ProductList/>
                     <Pages id="pages-bar"/>
-                {/* <Col md={3}>
-                    <TypeBar/>
-                </Col> */}
-                {/* <Col md={9}>
-                    
-                </Col> */}
             </Container>
         </Container>
     );

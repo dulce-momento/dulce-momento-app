@@ -1,4 +1,4 @@
-const { Rating } = require('../models/models')
+const { Rating, Client } = require('../models/models')
 const ApiError = require('../error/ApiError');
 const { where } = require('sequelize');
 const jwt = require('jsonwebtoken');
@@ -19,7 +19,7 @@ class RatingController {
      * @returns {Rating} - Добавленная запись Rating в формате JSON
      */
     async create(req, res, next) {
-        const { rating, comment, productId } = req.body;
+        let { rating, comment, productId } = req.body;
         let { clientId } = req.body;
         if (!clientId) {
             try {
@@ -39,6 +39,12 @@ class RatingController {
         if (check)
             return res.json("Уже имеется отзыв");
         else {
+            if (rating > 5)
+                rating = 5;
+            if (rating <= 0)
+                rating = 1;
+            if (comment === null)
+                comment = '';
             const r = await Rating.create({
                 rating, comment, productId, clientId
             });
@@ -51,9 +57,10 @@ class RatingController {
      * @param {json} res - Информация ответа
      * @returns {Rating[]} - Все записи Rating в формате JSON
      */
-    async getAll(req, res) {
-        const ratings = await Rating.findAll()
-        return res.json(ratings)
+    async getAllByProductId(req, res) {
+        const { id } = req.params;
+        const ratings = await Rating.findAll({ where: { productId: id }, include: Client });
+        return res.json(ratings);
     }
 
     /**
@@ -108,7 +115,7 @@ class RatingController {
                         check.rating = rating;
                     if (comment)
                         check.comment = comment;
-                    console.log("UPDATED: " +check.dataValues.rating + " " + check.dataValues.comment);
+                    console.log("UPDATED: " + check.dataValues.rating + " " + check.dataValues.comment);
                     await check.save().then(() => console.log("UPDATED SUCCESSFULLY"));
                     return res.json(check);
                 }
@@ -122,6 +129,27 @@ class RatingController {
             next(ApiError.badRequest(e.message));
         }
     };
+
+    async checkIfCanReview(req, res, next) {
+        let clientId;
+        try {
+            if (req.headers.authorization) {
+                const bearertoken = req.headers.authorization.split(' ')[1];
+                const decodedToken = jwt.verify(bearertoken, process.env.SECRET_KEY);
+                clientId = decodedToken.id;
+            }
+        }
+        catch (e) {
+            next(ApiError.internal(e.message));
+        };
+
+        //console.log(req.params);
+        const { id } = req.params;
+
+        const rating = await Rating.findOne({ where: { clientId: clientId, productId: id } });
+
+        return res.json(rating);
+    }
 }
 
 module.exports = new RatingController()

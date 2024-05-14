@@ -38,7 +38,8 @@ class DeliveryController {
         //console.log("CART");
         //console.log(delivery);
         const ids = cart.map(cartItem => cartItem.id);
-
+        if (address === null)
+            address = "?";
         const newdeli = await Delivery.create({ address: address, sum: sum, clientId: clientId });
         CartItem.update({ deliveryId: newdeli.id }, { where: { id: ids } });
         return res.json(newdeli);
@@ -62,19 +63,19 @@ class DeliveryController {
         catch (e) {
             next(ApiError.internal(e.message));
         };
-        const deliveries = await Delivery.findAll({where: {clientId: clientId }});
+        const deliveries = await Delivery.findAll({ where: { clientId: clientId } });
 
         //console.log(JSON.stringify( deliveries[0]));
         return res.json(deliveries);
     }
 
-    async getAllDeliveries(req, res, next){
+    async getAllDeliveries(req, res, next) {
         let clientId;
         try {
             if (req.headers.authorization) {
                 const bearertoken = req.headers.authorization.split(' ')[1];
                 const decodedToken = jwt.verify(bearertoken, process.env.SECRET_KEY);
-                if(decodedToken.role!="ADMIN")
+                if (decodedToken.role != "ADMIN")
                     throw new Error("Нет доступа");
             }
         }
@@ -84,8 +85,10 @@ class DeliveryController {
         const deliveries = await Delivery.findAll(
             {
                 where: {
-                    date: {[Op.is]: null    
-                    }}
+                    date: {
+                        [Op.is]: null
+                    }
+                }
             }
         );
         //console.log(deliveries);
@@ -93,13 +96,13 @@ class DeliveryController {
         return res.json(deliveries);
     }
 
-    async updateDate(req, res, next){
+    async updateDate(req, res, next) {
         let clientId;
         try {
             if (req.headers.authorization) {
                 const bearertoken = req.headers.authorization.split(' ')[1];
                 const decodedToken = jwt.verify(bearertoken, process.env.SECRET_KEY);
-                if(decodedToken.role!="ADMIN")
+                if (decodedToken.role != "ADMIN")
                     throw new Error("Нет доступа");
             }
         }
@@ -108,7 +111,7 @@ class DeliveryController {
         };
         const { id } = req.body;
 
-        await Delivery.update( {date: Date.now(), status: "Обработано"},{where: {id: id}});
+        await Delivery.update({ date: Date.now(), status: "Обработано" }, { where: { id: id } });
 
         return res.json(id);
     }

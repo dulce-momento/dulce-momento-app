@@ -26,8 +26,8 @@ export const createRating = async (rating) => {
     return data;
 };
 
-export const fetchRatings = async () => {
-    const { data } = await $host.get('api/rating',);
+export const fetchRatings = async (id) => {
+    const { data } = await $host.get('api/rating/'+id);
     return data;
 };
 
@@ -90,6 +90,16 @@ export const fetchAllDeliveries = async () => {
 }
 
 export const updateDeliveryDate = async (id) => {
-    const {data} = await $authHost.patch('api/delivery', {id});
+    const { data } = await $authHost.patch('api/delivery', { id });
+    return data;
+}
+
+export const checkIfBoughtPrev = async (productId) => {
+    const { data } = await $authHost.get('api/cart/check/' + productId);
+    return data;
+}
+
+export const checkIfCanReview = async (productId) => {
+    const { data } = await $authHost.get('api/rating/check/' + productId);
     return data;
 }
