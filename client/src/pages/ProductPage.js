@@ -25,9 +25,11 @@ const ProductPage = observer(() => {
     }
 
     const addRating = () => {
-        createRating({clientId: client.client.id, productId: id,
-             comment: textAreaComment, rating: curRating.curRating})
-             .then(data => console.log(data));
+        createRating({
+            clientId: client.client.id, productId: id,
+            comment: textAreaComment, rating: curRating.curRating
+        })
+            .then(data => console.log(data));
         navigate(0);
     }
 
@@ -38,17 +40,19 @@ const ProductPage = observer(() => {
         // checkIfCanReview(id).then(data => data == null);
         // checkIfBoughtPrev(id).then(data => data != null);
         let bool = false;
-        checkIfBoughtPrev(id).then(data => {
-            bool = data != null;
-            setCanReview(bool)
-            //console.log(bool);
-        });
-        checkIfCanReview(id).then(data => {
-            bool = bool && data === null;
-            setCanReview(bool);
-            //console.log(bool);
+        if (localStorage.getItem('token') != null) {
+            checkIfBoughtPrev(id).then(data => {
+                bool = data != null;
+                setCanReview(bool)
+                //console.log(bool);
+            });
+            checkIfCanReview(id).then(data => {
+                bool = bool && data === null;
+                setCanReview(bool);
+                //console.log(bool);
 
-        });
+            });
+        }
 
         // if(canReview===true){
         //     checkIfCanReview(id).then(data => setCanReview(data === null));
@@ -84,8 +88,8 @@ const ProductPage = observer(() => {
                     <Container >
                         <h1>Оставьте отзыв 🙏</h1>
                         <textarea value={textAreaComment}
-                        placeholder="Комментарий..." style={{width:'100%'}}
-                        onChange={e => setComment(e.target.value)}/>
+                            placeholder="Комментарий..." style={{ width: '100%' }}
+                            onChange={e => setComment(e.target.value)} />
 
                         <StarRating />
 
@@ -102,12 +106,13 @@ const ProductPage = observer(() => {
 
 
                 {ratings.length > 0 && ratings?.map((rating, index) =>
-                    <Row key={rating.id} style={{ background: index % 2 === 0 ? '#fff0ff' : '#fffff0', padding: 10,
+                    <Row key={rating.id} style={{
+                        background: index % 2 === 0 ? '#fff0ff' : '#fffff0', padding: 10,
                         display: 'flex', flexFlow: 'column'
-                     }}>
-                        <p style={{fontWeight:700}}>{rating.client.name + " " + rating.client.surname} ({rating.createdAt})</p>
-                        <p style={{marginRight: '20px'}}>{rating.comment}</p>
-                        <StarRatingReadOnly rating={rating.rating}/>
+                    }}>
+                        <p style={{ fontWeight: 700 }}>{rating.client.name + " " + rating.client.surname} ({rating.createdAt})</p>
+                        <p style={{ marginRight: '20px' }}>{rating.comment}</p>
+                        <StarRatingReadOnly rating={rating.rating} />
                     </Row>
                 )}
             </Row>
