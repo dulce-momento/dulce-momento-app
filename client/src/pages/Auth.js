@@ -8,7 +8,6 @@ import { LOGIN_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "../u
 import { login, registration } from "../http/userAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
-import Profile from './Profile';
 
 const Auth = observer(() => {
     const { client } = useContext(Context);

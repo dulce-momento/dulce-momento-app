@@ -27,6 +27,8 @@ const Shop = observer(() => {
 
     return (
         <Container id="shop-cont">
+            <h3>Каталог 🧁</h3>
+
             <Container className="mt-2">
                     <ProductList/>
                     <Pages id="pages-bar"/>

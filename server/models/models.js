@@ -95,7 +95,9 @@ const Rating = sequelize.define('rating', {
 const Delivery = sequelize.define('delivery', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     address: { type: DataTypes.STRING, allowNull: false },
-    date: { type: DataTypes.DATEONLY, allowNull: true }
+    sum: { type: DataTypes.DECIMAL, allowNull: false, defaultValue: 0 },
+    date: { type: DataTypes.DATEONLY, allowNull: true },
+    status: { type: DataTypes.STRING, allowNull: false, defaultValue: "В обработке" }
 }
 );
 
@@ -103,6 +105,9 @@ const Delivery = sequelize.define('delivery', {
 /// adds client id fk to rating
 Client.hasMany(Rating, { onDelete: 'CASCADE' });
 Rating.belongsTo(Client);
+
+Client.hasMany(Delivery, { foreignKey: { allowNull: false }, onDelete: 'CASCADE'});
+Delivery.belongsTo(Client);
 
 Product.hasMany(CartItem, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 CartItem.belongsTo(Product);
@@ -146,10 +151,11 @@ async function updateProductRating(productId) {
     await Product.update({ rating: parseInt(averageRating.averageRating) }, { where: { id: productId } });
 };
 
+//Delivery.sync({force:true});
 /**
  * Синхронизация моделей с БД PostgreSQL при обновлении структуры.
  */
-sequelize.sync()
+sequelize.sync() //{force:true}
     .then(() => {
         console.log("Models synchronized");
     })

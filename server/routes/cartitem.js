@@ -7,5 +7,6 @@ router.post('/', checkRole(['ADMIN', 'USER']), cartController.create);
 router.get('/', checkRole(['ADMIN', 'USER']),cartController.getAllByClientId);
 router.delete('/:id', checkRole(['ADMIN', 'USER']), cartController.deleteOne);
 router.get('/:id', checkRole(['ADMIN', 'USER']), cartController.getByProduct);
+router.patch('/', checkRole(['ADMIN', 'USER']), cartController.setDeliveryId);
 
 module.exports = router;

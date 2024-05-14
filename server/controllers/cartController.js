@@ -34,6 +34,9 @@ class CartController {
             next(ApiError.internal(e.message));
         };
         const { productId } = req.body;
+        if(productId==null){
+            return res.status(500);
+        }
         const cartitem = await CartItem.create({productId, clientId });
         return res.json(cartitem);
     }
@@ -57,7 +60,7 @@ class CartController {
         catch (e) {
             next(ApiError.internal(e.message));
         };
-        const cartitems = await CartItem.findAll({where: {clientId: clientId }, include: Product});
+        const cartitems = await CartItem.findAll({where: {clientId: clientId, deliveryId: null }, include: Product});
         return res.json(cartitems);
     }
 
@@ -103,6 +106,29 @@ class CartController {
         const { productId } = req.params;
         const cartItem = CartItem.findOne({ where: { clientId: clientId, productId: productId } });
         return res.json(cartItem);
+    }
+
+    async setDeliveryId(req, res, next){
+        let clientId;
+        try {
+            if (req.headers.authorization) {
+                const bearertoken = req.headers.authorization.split(' ')[1];
+                const decodedToken = jwt.verify(bearertoken, process.env.SECRET_KEY);
+                clientId = decodedToken.id;
+                //console.log(decodedToken);
+            }
+        }
+        catch (e) {
+            next(ApiError.internal(e.message));
+        };
+
+        const { deliveryId, cartItems } = req.body;
+        const ids = cartItems.map(cartItem => cartItem.id);
+        //const prices = cartItems.map(cartItems => cartItems.product.price);
+        //const sum = prices.reduce((partSum, a) => (partSum + Number(a)), 0);
+        //console.log(prices.reduce((partSum, a) => (partSum + Number(a)), 0));
+        const cart = CartItem.update({deliveryId:deliveryId}, {where: { id: ids }});
+        return res.json(cart);
     }
 }
 

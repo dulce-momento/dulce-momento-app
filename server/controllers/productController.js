@@ -21,10 +21,24 @@ class ProductController {
     async create(req, res, next) {
         try {
             let { name, price, info } = req.body;
-            const { img } = req.files;
-            let fileName = uuid.v4() + ".jpg";
-            img.mv(path.resolve(__dirname, '..', 'static', fileName));
-            const product = await Product.create({ name, price, img: fileName });
+            let fileName;
+            console.log(req.body);
+            if (req.files != null) {
+                var { img } = req.files;
+            }
+            else {
+                var img = null;
+            }
+            if (img != null) {
+                console.log("NOT NULL");
+                fileName = uuid.v4() + ".jpg";
+                img.mv(path.resolve(__dirname, '..', 'static', fileName));
+            }
+            else {
+                fileName = null;
+            }
+            const product = fileName!=null ? await Product.create({ name, price, img: fileName })
+            : await Product.create({ name, price });
             console.log("INFO: " + info);
 
             if (info) {
@@ -40,7 +54,7 @@ class ProductController {
 
             return res.json(product);
         } catch (e) {
-            next(ApiError.badRequest(e.message));
+            next(ApiError.internal(e.message));
         }
 
     };
@@ -122,7 +136,7 @@ class ProductController {
             if (product) {
 
                 let { name, price, link } = req.body;
-                const { img } = req.files||{};
+                const { img } = req.files || {};
                 let fileName;
                 if (img) {
                     fileName = uuid.v4() + ".jpg";
