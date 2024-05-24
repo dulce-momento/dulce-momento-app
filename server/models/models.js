@@ -155,6 +155,8 @@ async function updateProductRating(productId) {
 /**
  * Синхронизация моделей с БД PostgreSQL при обновлении структуры.
  */
+
+//ВЫКЛЮЧИТЬ ПРИ ТЕСТИРОВАНИИ
 sequelize.sync() //{force:true}
     .then(() => {
         console.log("Models synchronized");

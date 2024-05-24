@@ -46,4 +46,6 @@ const start = async () => {
 
 start();
 
+//module.exports = app; для тестирования
+
 //npm run dev to start

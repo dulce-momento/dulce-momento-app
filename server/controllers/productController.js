@@ -37,8 +37,8 @@ class ProductController {
             else {
                 fileName = null;
             }
-            const product = fileName!=null ? await Product.create({ name, price, img: fileName })
-            : await Product.create({ name, price });
+            const product = fileName != null ? await Product.create({ name, price, img: fileName })
+                : await Product.create({ name, price });
             console.log("INFO: " + info);
 
             if (info) {
@@ -104,12 +104,15 @@ class ProductController {
                 where: { id }
             });
             if (product) {
-                await unlink(
-                    path.resolve(__dirname, "..", "static", product.dataValues.img),
-                    (error) => {
-                        if (error) throw error;
-                    }
-                );
+                if (product.dataValues.img != "fbe4a9ba-c229-4102-bbc7-e2f9f4f9e67a.jpg"
+                ) {
+                    await unlink(
+                        path.resolve(__dirname, "..", "static", product.dataValues.img),
+                        (error) => {
+                            if (error) throw error;
+                        }
+                    );
+                }
                 await product.destroy({
                     where: { id }
                 });
